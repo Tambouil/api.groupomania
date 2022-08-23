@@ -6,6 +6,7 @@ specifiers:
   '@adonisjs/core': ^5.8.6
   '@adonisjs/lucid': ^18.1.0
   '@adonisjs/repl': ^3.1.11
+  '@adonisjs/session': ^6.4.0
   '@japa/preset-adonis': ^1.1.0
   '@japa/runner': ^2.0.9
   adonis-preset-ts: ^2.1.0
@@ -26,10 +27,11 @@ specifiers:
   youch-terminal: ^2.1.4
 
 dependencies:
-  '@adonisjs/auth': 8.2.2_tv2ykgzchnmlzuojtyyb4dr4ti
+  '@adonisjs/auth': 8.2.2_mbzxwiiteylc4a7ee274dytj3m
   '@adonisjs/core': 5.8.6
   '@adonisjs/lucid': 18.1.0_esmf4ykroadndtuiwikge2ztie
   '@adonisjs/repl': 3.1.11_@adonisjs+core@5.8.6
+  '@adonisjs/session': 6.4.0_@adonisjs+core@5.8.6
   luxon: 3.0.1
   pg: 8.7.3
   phc-argon2: 1.1.3
@@ -108,7 +110,7 @@ packages:
       - supports-color
     dev: true
 
-  /@adonisjs/auth/8.2.2_tv2ykgzchnmlzuojtyyb4dr4ti:
+  /@adonisjs/auth/8.2.2_mbzxwiiteylc4a7ee274dytj3m:
     resolution: {integrity: sha512-XCfZhe6pm2ImeADr3IquzjDJfwmQxuh2d27AdTfEKvMfpDHVHMnFOFBizfz18Z1Nas/Gl7Lw00CsrnpCLNswmA==}
     peerDependencies:
       '@adonisjs/core': ^5.7.1
@@ -128,6 +130,7 @@ packages:
     dependencies:
       '@adonisjs/core': 5.8.6
       '@adonisjs/lucid': 18.1.0_esmf4ykroadndtuiwikge2ztie
+      '@adonisjs/session': 6.4.0_@adonisjs+core@5.8.6
       '@poppinss/hooks': 5.0.3
       '@poppinss/utils': 4.0.4
       luxon: 2.5.0
@@ -344,6 +347,16 @@ packages:
     transitivePeerDependencies:
       - supports-color
     dev: true
+
+  /@adonisjs/session/6.4.0_@adonisjs+core@5.8.6:
+    resolution: {integrity: sha512-9yHS60lFpNBUX5/yB+0j+bXQDWqbaYJ1JelLCYtaKRa7B0NewvmPAmsNpHH8SrXE3XGaRyKOxrUGRcmSGg5mRA==}
+    peerDependencies:
+      '@adonisjs/core': ^5.8.0
+    dependencies:
+      '@adonisjs/core': 5.8.6
+      '@poppinss/utils': 4.0.4
+      fs-extra: 10.1.0
+    dev: false
 
   /@adonisjs/sink/5.4.0_dcp26hjfxbju2etdd3namxtgxu:
     resolution: {integrity: sha512-67udQ21w4JNo78Slrwl19DZ8eWDWPSUhVo94K6IWvpC6nOKKOs5uQe2LV19EzJvdOTrn2u0CWDD7m8hE/pe2Lg==}
