@@ -6,7 +6,7 @@ import { Role } from 'App/Enums/Roles'
 export const PostFactory = Factory.define(Post, ({ faker }) => {
   return {
     content: faker.lorem.paragraph(),
-    media: faker.image.imageUrl(),
+    thumbnail: faker.image.imageUrl(),
   }
 }).build()
 

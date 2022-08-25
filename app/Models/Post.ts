@@ -16,7 +16,7 @@ export default class Post extends BaseModel {
   public content: string
 
   @column()
-  public media: string | null
+  public thumbnail: string | null
 
   @column()
   public published: boolean

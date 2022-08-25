@@ -20,9 +20,16 @@
 
 import Route from '@ioc:Adonis/Core/Route'
 
+// AUTH
 Route.get('/ping', async () => {
   return { message: 'pong' }
 })
 Route.post('/login', 'AuthController.login')
 Route.post('/register', 'AuthController.register')
 Route.delete('/logout', 'AuthController.logout')
+
+// POSTS
+Route.get('/posts', 'PostsController.getAllPosts')
+Route.post('/posts', 'PostsController.createPost')
+Route.patch('/posts/:id', 'PostsController.editPost')
+Route.delete('/posts/:id', 'PostsController.deletePost')
