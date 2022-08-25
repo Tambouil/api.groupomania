@@ -28,6 +28,10 @@ Route.post('/login', 'AuthController.login')
 Route.post('/register', 'AuthController.register')
 Route.delete('/logout', 'AuthController.logout')
 
+// USER
+Route.patch('/users/:id', 'UsersController.editUser')
+Route.delete('/users/:id', 'UsersController.deleteUser')
+
 // POSTS
 Route.get('/posts', 'PostsController.getAllPosts')
 Route.post('/posts', 'PostsController.createPost')

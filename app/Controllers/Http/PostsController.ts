@@ -28,10 +28,6 @@ export default class PostsController {
     const payload = await request.validate(PostValidator)
     const post = await Post.findOrFail(id)
 
-    if (!post) {
-      return
-    }
-
     const thumbnail = request.file('thumbnail_file')
 
     if (thumbnail) {
