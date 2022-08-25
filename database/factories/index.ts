@@ -1,7 +1,7 @@
 import Factory from '@ioc:Adonis/Lucid/Factory'
 import User from 'App/Models/User'
 import Post from 'App/Models/Post'
-import { Role } from '../../app/Enums/Roles'
+import { Role } from 'App/Enums/Roles'
 
 export const UserFactory = Factory.define(User, ({ faker }) => {
   return {
