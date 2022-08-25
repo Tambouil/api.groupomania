@@ -1,18 +1,9 @@
 import BaseSeeder from '@ioc:Adonis/Lucid/Seeder'
-import { Role } from 'App/Enums/Roles'
-import User from 'App/Models/User'
 import { UserFactory } from 'Database/factories'
 
-export default class extends BaseSeeder {
+export default class UserSeeder extends BaseSeeder {
   public async run() {
-    // Write your database queries inside the run method
-    await User.create({
-      username: 'admin',
-      email: 'admin@admin.com',
-      password: 'secret',
-      role: Role.ADMIN,
-    })
-
-    await UserFactory.createMany(10)
+    await UserFactory.apply('admin').with('posts', 2).create()
+    await UserFactory.with('posts', 3).create()
   }
 }

@@ -1,5 +1,5 @@
 import { DateTime } from 'luxon'
-import { BaseModel, belongsTo, column } from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, BelongsTo, belongsTo, column } from '@ioc:Adonis/Lucid/Orm'
 import User from 'App/Models/User'
 
 export default class Post extends BaseModel {
@@ -22,8 +22,8 @@ export default class Post extends BaseModel {
   public published: boolean
 
   @belongsTo(() => User)
-  public author: User
+  public user: BelongsTo<typeof User>
 
   @column()
-  public author_id: number
+  public userId: number
 }
