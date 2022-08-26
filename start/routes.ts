@@ -19,21 +19,30 @@
 */
 
 import Route from '@ioc:Adonis/Core/Route'
+import HealthCheck from '@ioc:Adonis/Core/HealthCheck'
 
-// AUTH
-Route.get('/ping', async () => {
-  return { message: 'pong' }
-})
-Route.post('/login', 'AuthController.login')
-Route.post('/register', 'AuthController.register')
-Route.delete('/logout', 'AuthController.logout')
+Route.group(() => {
+  // Health Check
+  Route.get('health', async ({ response }) => {
+    const report = await HealthCheck.getReport()
 
-// USER
-Route.patch('/users/:id', 'UsersController.editUser')
-Route.delete('/users/:id', 'UsersController.deleteUser')
+    return report.healthy ? response.ok(report) : response.badRequest(report)
+  })
+  // AUTH
+  Route.post('/login', 'AuthController.login')
+  Route.post('/register', 'AuthController.register')
+  Route.group(() => {
+    // AUTH
+    Route.delete('/logout', 'AuthController.logout')
 
-// POSTS
-Route.get('/posts', 'PostsController.getAllPosts')
-Route.post('/posts', 'PostsController.createPost')
-Route.patch('/posts/:id', 'PostsController.editPost')
-Route.delete('/posts/:id', 'PostsController.deletePost')
+    // USER
+    Route.patch('/users/:id', 'UsersController.editUser')
+    Route.delete('/users/:id', 'UsersController.deleteUser')
+
+    // POSTS
+    Route.get('/posts', 'PostsController.getAllPosts')
+    Route.post('/posts', 'PostsController.createPost')
+    Route.patch('/posts/:id', 'PostsController.editPost')
+    Route.delete('/posts/:id', 'PostsController.deletePost')
+  }).middleware('auth')
+}).prefix('/api')
