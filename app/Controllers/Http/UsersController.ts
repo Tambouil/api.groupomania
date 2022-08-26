@@ -8,7 +8,10 @@ export default class UsersController {
     const { id } = params
     const user = await User.findOrFail(id)
     const data = await request.validate(UserValidator)
-    const avatar = request.file('avatar_file')
+    const avatar = request.file('avatarFile', {
+      size: '2mb',
+      extnames: ['jpg', 'JPG', 'png', 'PNG', 'jpeg', 'gif', 'webp'],
+    })
 
     if (avatar) {
       if (user.avatar) {

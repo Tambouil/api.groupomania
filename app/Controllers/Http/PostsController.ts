@@ -8,8 +8,14 @@ export default class PostsController {
     await auth.authenticate()
     const userId = auth.user.id
     const payload = await request.validate(PostValidator)
-    const thumbnail = request.file('thumbnail_file')
+    const thumbnail = request.file('thumbnailFile', {
+      size: '2mb',
+      extnames: ['jpg', 'JPG', 'png', 'PNG', 'jpeg', 'gif', 'webp'],
+    })
     if (thumbnail) {
+      if (!thumbnail.isValid) {
+        return thumbnail.errors
+      }
       await thumbnail.moveToDisk('./posts')
     }
     await Post.create({
@@ -32,7 +38,7 @@ export default class PostsController {
     await bouncer.authorize('isAuthorized', post)
 
     const payload = await request.validate(PostValidator)
-    const thumbnail = request.file('thumbnail_file')
+    const thumbnail = request.file('thumbnailFile')
     if (thumbnail) {
       if (post.thumbnail) {
         await Drive.delete(post.thumbnail)
