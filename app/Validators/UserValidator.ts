@@ -24,7 +24,7 @@ export default class UserValidator {
    *    ```
    */
   public schema = schema.create({
-    username: schema.string([
+    username: schema.string.optional([
       rules.alpha({
         allow: ['space', 'underscore', 'dash'],
       }),

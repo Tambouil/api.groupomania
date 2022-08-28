@@ -35,10 +35,13 @@ export default class PostsController {
   public async editPost({ request, response, params, bouncer }: HttpContextContract) {
     const { id } = params
     const post = await Post.findOrFail(id)
-    await bouncer.authorize('isAuthorized', post)
+    await bouncer.authorize('editPost', post)
 
     const payload = await request.validate(PostValidator)
-    const thumbnail = request.file('thumbnailFile')
+    const thumbnail = request.file('thumbnailFile', {
+      size: '2mb',
+      extnames: ['jpg', 'JPG', 'png', 'PNG', 'jpeg', 'gif', 'webp'],
+    })
     if (thumbnail) {
       if (post.thumbnail) {
         await Drive.delete(post.thumbnail)
@@ -56,7 +59,7 @@ export default class PostsController {
   public async deletePost({ response, params, bouncer }: HttpContextContract) {
     const { id } = params
     const post = await Post.findOrFail(id)
-    await bouncer.authorize('isAuthorized', post)
+    await bouncer.authorize('deletePost', post)
     if (post.thumbnail) {
       await Drive.delete(post.thumbnail)
     }

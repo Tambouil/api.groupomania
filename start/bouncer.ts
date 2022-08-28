@@ -32,9 +32,18 @@ import { Role } from 'App/Enums/Roles'
 | NOTE: Always export the "actions" const from this file
 |****************************************************************
 */
-export const { actions } = Bouncer.define('isAuthorized', (user: User, post: Post) => {
-  return post.userId === user.id || user.role === Role.ADMIN
+export const { actions } = Bouncer.define('editUser', (user: User, userToEdit: User) => {
+  return user.id === userToEdit.id || user.role === Role.ADMIN
 })
+  .define('deleteUser', (user: User, userToDelete: User) => {
+    return user.id === userToDelete.id || user.role === Role.ADMIN
+  })
+  .define('deletePost', (user: User, post: Post) => {
+    return user.id === post.userId || user.role === Role.ADMIN
+  })
+  .define('editPost', (user: User, post: Post) => {
+    return user.id === post.userId || user.role === Role.ADMIN
+  })
 
 /*
 |--------------------------------------------------------------------------
