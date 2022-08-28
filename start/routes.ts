@@ -32,7 +32,6 @@ Route.group(() => {
   Route.post('/login', 'AuthController.login')
   Route.post('/register', 'AuthController.register')
   Route.group(() => {
-    // AUTH
     Route.delete('/logout', 'AuthController.logout')
 
     // USER
@@ -44,5 +43,12 @@ Route.group(() => {
     Route.post('/posts', 'PostsController.createPost')
     Route.patch('/posts/:id', 'PostsController.editPost')
     Route.delete('/posts/:id', 'PostsController.deletePost')
+
+    // COMMENTS
+    Route.group(() => {
+      Route.post('/comments', 'CommentsController.addComment')
+      Route.patch('/comments/:id', 'CommentsController.editComment')
+      Route.delete('/comments/:id', 'CommentsController.deleteComment')
+    }).prefix('/posts/:postId')
   }).middleware('auth')
 }).prefix('/api')

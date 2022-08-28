@@ -44,6 +44,12 @@ export const { actions } = Bouncer.define('editUser', (user: User, userToEdit: U
   .define('editPost', (user: User, post: Post) => {
     return user.id === post.userId || user.role === Role.ADMIN
   })
+  .define('editComment', (user: User, comment: Post) => {
+    return user.id === comment.userId || user.role === Role.ADMIN
+  })
+  .define('deleteComment', (user: User, comment: Post) => {
+    return user.id === comment.userId || user.role === Role.ADMIN
+  })
 
 /*
 |--------------------------------------------------------------------------
