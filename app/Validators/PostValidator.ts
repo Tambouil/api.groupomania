@@ -24,7 +24,7 @@ export default class PostValidator {
    *    ```
    */
   public schema = schema.create({
-    content: schema.string([rules.trim()]),
+    content: schema.string([rules.trim(), rules.maxLength(255)]),
   })
 
   /**

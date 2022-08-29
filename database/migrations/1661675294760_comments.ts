@@ -8,8 +8,13 @@ export default class extends BaseSchema {
       table.increments('id').primary()
       table.string('content').notNullable()
       table.boolean('published').notNullable().defaultTo(true)
-      table.integer('user_id').unsigned().references('id').inTable('users').onDelete('CASCADE')
-      // .notNullable()
+      table
+        .integer('user_id')
+        .unsigned()
+        .references('id')
+        .inTable('users')
+        .onDelete('CASCADE')
+        .notNullable()
       table
         .integer('post_id')
         .unsigned()

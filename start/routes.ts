@@ -44,11 +44,14 @@ Route.group(() => {
     Route.patch('/posts/:id', 'PostsController.editPost')
     Route.delete('/posts/:id', 'PostsController.deletePost')
 
-    // COMMENTS
     Route.group(() => {
+      // COMMENTS
       Route.post('/comments', 'CommentsController.addComment')
       Route.patch('/comments/:id', 'CommentsController.editComment')
       Route.delete('/comments/:id', 'CommentsController.deleteComment')
+
+      // LIKES
+      Route.post('/likes', 'LikesController.likePost')
     }).prefix('/posts/:postId')
   }).middleware('auth')
 }).prefix('/api')
