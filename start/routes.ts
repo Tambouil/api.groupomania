@@ -37,6 +37,9 @@ Route.group(() => {
     // USER
     Route.patch('/users/:id', 'UsersController.editUser')
     Route.delete('/users/:id', 'UsersController.deleteUser')
+    Route.group(() => {
+      Route.post('/follow', 'FollowsController.followUser')
+    }).prefix('/users/:id')
 
     // POSTS
     Route.get('/posts', 'PostsController.getAllPosts')

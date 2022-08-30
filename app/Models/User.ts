@@ -4,6 +4,7 @@ import { column, beforeSave, BaseModel, hasMany, HasMany } from '@ioc:Adonis/Luc
 import Post from './Post'
 import Comment from './Comment'
 import Like from './Like'
+import Follow from './Follow'
 
 export default class User extends BaseModel {
   @column({ isPrimary: true })
@@ -38,6 +39,9 @@ export default class User extends BaseModel {
 
   @hasMany(() => Like)
   public likes: HasMany<typeof Like>
+
+  @hasMany(() => Follow)
+  public follows: HasMany<typeof Follow>
 
   @beforeSave()
   public static async hashPassword(User: User) {
