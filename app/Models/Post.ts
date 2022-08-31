@@ -3,6 +3,7 @@ import { BaseModel, BelongsTo, belongsTo, column, HasMany, hasMany } from '@ioc:
 import User from './User'
 import Comment from './Comment'
 import Like from './Like'
+import { attachment, AttachmentContract } from '@ioc:Adonis/Addons/AttachmentLite'
 
 export default class Post extends BaseModel {
   @column({ isPrimary: true })
@@ -17,8 +18,8 @@ export default class Post extends BaseModel {
   @column()
   public content: string
 
-  @column()
-  public thumbnail?: string
+  @attachment({ folder: 'posts', preComputeUrl: true })
+  public thumbnail: AttachmentContract | null
 
   @column()
   public published: boolean

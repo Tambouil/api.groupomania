@@ -5,6 +5,7 @@ import Post from './Post'
 import Comment from './Comment'
 import Like from './Like'
 import Follow from './Follow'
+import { attachment, AttachmentContract } from '@ioc:Adonis/Addons/AttachmentLite'
 
 export default class User extends BaseModel {
   @column({ isPrimary: true })
@@ -19,8 +20,8 @@ export default class User extends BaseModel {
   @column({ serializeAs: null })
   public password: string
 
-  @column()
-  public avatar?: string
+  @attachment({ folder: 'users', preComputeUrl: true })
+  public avatar: AttachmentContract | null
 
   @column()
   public role: number

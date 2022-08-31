@@ -7,7 +7,7 @@ export default class extends BaseSchema {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id').primary()
       table.string('content').notNullable()
-      table.string('thumbnail').nullable()
+      table.json('thumbnail')
       table.boolean('published').notNullable().defaultTo(true)
       table.integer('likes').nullable()
       table

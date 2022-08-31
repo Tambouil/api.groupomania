@@ -1,7 +1,7 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import UserValidator from 'App/Validators/UserValidator'
 import User from 'App/Models/User'
-import Drive from '@ioc:Adonis/Core/Drive'
+import { Attachment } from '@ioc:Adonis/Addons/AttachmentLite'
 
 export default class UsersController {
   public async editUser({ request, response, params, bouncer }: HttpContextContract) {
@@ -10,30 +10,37 @@ export default class UsersController {
     await bouncer.authorize('editUser', user)
 
     const payload = await request.validate(UserValidator)
-    const avatar = request.file('avatarFile')
-
+    const avatar = request.file('avatarFile', {
+      size: '2mb',
+      extnames: ['jpg', 'JPG', 'png', 'PNG', 'jpeg', 'gif', 'webp'],
+    })
     if (avatar) {
-      if (user.avatar) {
-        await Drive.delete(user.avatar)
+      if (!avatar.isValid) {
+        return avatar.errors
       }
-      await avatar.moveToDisk('./users')
+      user.avatar = Attachment.fromFile(avatar)
     }
 
-    await user.merge({ ...payload, ...(avatar && { avatar: `users/${avatar.fileName}` }) }).save()
-
+    await user.merge(payload, avatar).save()
     return response.status(200).send({ message: 'User updated' })
+  }
+
+  public async deleteAvatar({ response, params, bouncer }: HttpContextContract) {
+    const { id } = params
+    const user = await User.findOrFail(id)
+    await bouncer.authorize('editUser', user)
+
+    user.avatar = null
+    await user.save()
+    return response.status(200).send({ message: 'Avatar deleted' })
   }
 
   public async deleteUser({ response, params, bouncer }: HttpContextContract) {
     const { id } = params
     const user = await User.findOrFail(id)
-
     await bouncer.authorize('deleteUser', user)
-    if (user.avatar) {
-      await Drive.delete(user.avatar)
-    }
-    await user.delete()
 
+    await user.delete()
     return response.status(200).send({ message: 'User deleted' })
   }
 }

@@ -36,6 +36,7 @@ Route.group(() => {
 
     // USER
     Route.patch('/users/:id', 'UsersController.editUser')
+    Route.delete('/users/:id/avatar', 'UsersController.deleteAvatar')
     Route.delete('/users/:id', 'UsersController.deleteUser')
     Route.group(() => {
       Route.post('/follow', 'FollowsController.followUser')
@@ -45,6 +46,7 @@ Route.group(() => {
     Route.get('/posts', 'PostsController.getAllPosts')
     Route.post('/posts', 'PostsController.createPost')
     Route.patch('/posts/:id', 'PostsController.editPost')
+    Route.delete('/posts/:id/thumbnail', 'PostsController.deleteThumbnail')
     Route.delete('/posts/:id', 'PostsController.deletePost')
 
     Route.group(() => {
