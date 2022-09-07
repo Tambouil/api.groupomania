@@ -28,12 +28,13 @@ Route.group(() => {
 
     return report.healthy ? response.ok(report) : response.badRequest(report)
   })
-  // AUTH
-  Route.post('/login', 'AuthController.login')
-  Route.post('/register', 'AuthController.register')
   Route.group(() => {
-    Route.delete('/logout', 'AuthController.logout')
-
+    // AUTH
+    Route.post('/login', 'AuthController.login')
+    Route.post('/register', 'AuthController.register')
+    Route.post('/logout', 'AuthController.logout').middleware('auth')
+  }).prefix('auth')
+  Route.group(() => {
     // USER
     Route.patch('/users/:id', 'UsersController.editUser')
     Route.delete('/users/:id/avatar', 'UsersController.deleteAvatar')
