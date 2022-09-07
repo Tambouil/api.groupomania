@@ -3,7 +3,7 @@ import { UserFactory } from 'Database/factories'
 
 export default class UserSeeder extends BaseSeeder {
   public async run() {
-    await UserFactory.apply('admin').with('posts', 2).create()
+    await UserFactory.apply('admin').create()
     await UserFactory.with('posts', 2).createMany(3)
   }
 }
