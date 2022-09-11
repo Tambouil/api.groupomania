@@ -25,7 +25,7 @@ export default class PostsController {
       newPost.thumbnail = Attachment.fromFile(thumbnail)
       await newPost.save()
     }
-    return response.status(201).send({ message: 'Post created' })
+    return response.status(201).send(newPost)
   }
 
   public async getAllPosts({ response }: HttpContextContract) {
@@ -51,7 +51,7 @@ export default class PostsController {
     }
 
     await post.merge(payload, thumbnail).save()
-    return response.status(200).send({ message: 'Post updated' })
+    return response.status(200).send(post)
   }
 
   public async deleteThumbnail({ response, params, bouncer }: HttpContextContract) {
@@ -61,7 +61,7 @@ export default class PostsController {
 
     post.thumbnail = null
     await post.save()
-    return response.status(200).send({ message: 'Thumbnail deleted' })
+    return response.status(200).send(post)
   }
 
   public async deletePost({ response, params, bouncer }: HttpContextContract) {
@@ -70,6 +70,6 @@ export default class PostsController {
     await bouncer.authorize('deletePost', post)
 
     await post.delete()
-    return response.status(200).send({ message: 'Post deleted' })
+    return response.status(200).send(post)
   }
 }
