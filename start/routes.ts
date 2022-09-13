@@ -33,13 +33,15 @@ Route.group(() => {
     Route.post('/login', 'AuthController.login')
     Route.post('/register', 'AuthController.register')
     Route.post('/logout', 'AuthController.logout').middleware('auth')
+    Route.get('/me', 'AuthController.isAuthenticated')
   }).prefix('auth')
   Route.group(() => {
     // USER
-    Route.patch('/users/:id', 'UsersController.editUser')
-    Route.delete('/users/:id/avatar', 'UsersController.deleteAvatar')
-    Route.delete('/users/:id', 'UsersController.deleteUser')
     Route.group(() => {
+      Route.get('/', 'UsersController.getUserbyId')
+      Route.patch('/', 'UsersController.editUser')
+      Route.delete('/avatar', 'UsersController.deleteAvatar')
+      Route.delete('/', 'UsersController.deleteUser')
       Route.post('/follow', 'FollowsController.followUser')
     }).prefix('/users/:id')
 

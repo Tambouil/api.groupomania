@@ -4,6 +4,11 @@ import User from 'App/Models/User'
 import { Attachment } from '@ioc:Adonis/Addons/AttachmentLite'
 
 export default class UsersController {
+  public async getUserbyId({ params, response }: HttpContextContract) {
+    const user = await User.findOrFail(params.id)
+    return response.status(200).send(user)
+  }
+
   public async editUser({ request, response, params, bouncer }: HttpContextContract) {
     const { id } = params
     const user = await User.findOrFail(id)
