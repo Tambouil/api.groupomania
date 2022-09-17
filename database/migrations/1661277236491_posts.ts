@@ -9,7 +9,6 @@ export default class extends BaseSchema {
       table.string('content').notNullable()
       table.json('thumbnail')
       table.boolean('published').notNullable().defaultTo(true)
-      table.integer('likes').nullable()
       table
         .integer('user_id')
         .unsigned()
