@@ -4,18 +4,24 @@ import RegisterValidator from 'App/Validators/RegisterValidator'
 
 export default class AuthController {
   public async register({ request, auth, response }: HttpContextContract) {
-    const payload = await request.validate(RegisterValidator)
-
-    const user = await User.create(payload)
-    await auth.login(user)
-    return response.status(201).send(user)
+    try {
+      const payload = await request.validate(RegisterValidator)
+      const user = await User.create(payload)
+      await auth.login(user)
+      return response.status(201).send(user)
+    } catch (error) {
+      return response.status(400).send(error)
+    }
   }
 
   public async login({ request, auth, response }: HttpContextContract) {
-    const { email, password } = request.only(['email', 'password'])
-
-    const user = await auth.attempt(email, password)
-    return response.status(200).send(user)
+    try {
+      const { email, password } = request.all()
+      const token = await auth.attempt(email, password)
+      return response.status(200).send(token)
+    } catch (error) {
+      return response.status(400).send(error)
+    }
   }
 
   public async logout({ auth, response }: HttpContextContract) {
