@@ -52,13 +52,15 @@ Route.group(() => {
     Route.delete('/posts/:id/thumbnail', 'PostsController.deleteThumbnail')
     Route.delete('/posts/:id', 'PostsController.deletePost')
 
+    // COMMENTS
+    Route.get('/posts/allcomments', 'CommentsController.getAllComments')
     Route.group(() => {
-      // COMMENTS
       Route.post('/comments', 'CommentsController.addComment')
       Route.patch('/comments/:id', 'CommentsController.editComment')
       Route.delete('/comments/:id', 'CommentsController.deleteComment')
 
       // LIKES
+      Route.get('/likes', 'LikesController.getLikes')
       Route.post('/likes', 'LikesController.likePost')
     }).prefix('/posts/:postId')
   }).middleware('auth')

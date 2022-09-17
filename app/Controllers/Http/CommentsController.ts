@@ -16,7 +16,7 @@ export default class CommentsController {
       userId,
     })
 
-    return response.status(201).json({ message: 'Comment created' }, newComment)
+    return response.status(201).json(newComment)
   }
 
   public async editComment({ request, response, params, bouncer }: HttpContextContract) {
@@ -27,7 +27,7 @@ export default class CommentsController {
     await bouncer.authorize('editComment', comment)
     await comment.merge(content).save()
 
-    return response.status(200).json({ message: 'Comment updated' })
+    return response.status(200).json(comment)
   }
 
   public async deleteComment({ response, params, bouncer }: HttpContextContract) {
@@ -36,6 +36,12 @@ export default class CommentsController {
     await bouncer.authorize('deletePost', comment)
     await comment.delete()
 
-    return response.status(200).json({ message: 'Comment deleted' })
+    return response.status(200).json(comment)
+  }
+
+  public async getAllComments({ response }: HttpContextContract) {
+    const comments = await Comment.all()
+
+    return response.status(200).json(comments)
   }
 }
