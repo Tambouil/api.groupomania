@@ -4,6 +4,11 @@ import User from 'App/Models/User'
 import { Attachment } from '@ioc:Adonis/Addons/AttachmentLite'
 
 export default class UsersController {
+  public async getAllUsers({ response }: HttpContextContract) {
+    const users = await User.all()
+    return response.status(200).send(users)
+  }
+
   public async getUserbyId({ params, response }: HttpContextContract) {
     const user = await User.findOrFail(params.id)
     return response.status(200).send(user)
@@ -16,7 +21,6 @@ export default class UsersController {
 
     const payload = await request.validate(UserValidator)
     const avatar = request.file('avatarFile', {
-      size: '2mb',
       extnames: ['jpg', 'JPG', 'png', 'PNG', 'jpeg', 'gif', 'webp'],
     })
     if (avatar) {
@@ -27,7 +31,7 @@ export default class UsersController {
     }
 
     await user.merge(payload, avatar).save()
-    return response.status(200).send({ message: 'User updated' })
+    return response.status(200).send(user)
   }
 
   public async deleteAvatar({ response, params, bouncer }: HttpContextContract) {
@@ -37,7 +41,7 @@ export default class UsersController {
 
     user.avatar = null
     await user.save()
-    return response.status(200).send({ message: 'Avatar deleted' })
+    return response.status(200).send(user)
   }
 
   public async deleteUser({ response, params, bouncer }: HttpContextContract) {

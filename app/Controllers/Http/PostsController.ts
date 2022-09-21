@@ -9,7 +9,6 @@ export default class PostsController {
     const userId = auth.user.id
     const payload = await request.validate(PostValidator)
     const thumbnail = request.file('thumbnailFile', {
-      size: '2mb',
       extnames: ['jpg', 'JPG', 'png', 'PNG', 'jpeg', 'gif', 'webp'],
     })
 
@@ -40,7 +39,6 @@ export default class PostsController {
 
     const payload = await request.validate(PostValidator)
     const thumbnail = request.file('thumbnailFile', {
-      size: '2mb',
       extnames: ['jpg', 'JPG', 'png', 'PNG', 'jpeg', 'gif', 'webp'],
     })
     if (thumbnail) {
@@ -71,5 +69,11 @@ export default class PostsController {
 
     await post.delete()
     return response.status(200).send(post)
+  }
+
+  public async getPostsByUserId({ response, params }: HttpContextContract) {
+    const { id } = params
+    const posts = await Post.query().where('userId', id)
+    return response.status(200).send(posts)
   }
 }
