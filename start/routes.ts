@@ -37,11 +37,14 @@ Route.group(() => {
   }).prefix('auth')
   Route.group(() => {
     // USER
+    Route.get('/users', 'UsersController.getAllUsers')
     Route.group(() => {
       Route.get('/', 'UsersController.getUserbyId')
+      Route.get('/posts', 'PostsController.getPostsByUserId')
       Route.patch('/', 'UsersController.editUser')
       Route.delete('/avatar', 'UsersController.deleteAvatar')
       Route.delete('/', 'UsersController.deleteUser')
+      Route.get('/follows', 'FollowsController.getFollowers')
       Route.post('/follow', 'FollowsController.followUser')
     }).prefix('/users/:id')
 
