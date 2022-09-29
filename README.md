@@ -6,6 +6,8 @@ Backend part of Groupomania. A fully featured social network, with posts, likes,
 
 ## Tech Stack
 
+**Client:** Vite, React, TailwindCSS
+
 **Server:** Node, AdonisJS, PostgreSQL
 
 
