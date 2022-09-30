@@ -50,6 +50,6 @@ export default class UsersController {
     await bouncer.authorize('deleteUser', user)
 
     await user.delete()
-    return response.status(200).send({ message: 'User deleted' })
+    return response.status(200).send(user)
   }
 }
